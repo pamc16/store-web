@@ -1,46 +1,48 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { FaShoppingCart } from "react-icons/fa";
 import "./menu.css";
-import { Link } from "react-router-dom";
 
 const Menu = ({ userName, isAuthenticated, onLogout }) => {
   return (
-    <header className="menu">
-      <div className="menu-header">
-        <h1>Nombre de la Tienda</h1>
-        <div className="user-name">{userName}</div>
-        <NavLink to="/carrito" activeClassName="active">
-          <FaShoppingCart />
-        </NavLink>
+    <nav className="dashboard-sidebar">
+      <h2 className="dashboard-logo">Mi Tienda</h2>
+      <ul className="dashboard-menu">
+        <li className="dashboard-menu-item">
+          <NavLink exact to="/inicio" activeClassName="active">
+            <i className="fas fa-chart-line"></i>
+            Dashboard
+          </NavLink>
+        </li>
+        {/* <li className="dashboard-menu-item">
+          <i className="fas fa-shopping-cart"></i>
+          Ventas
+        </li> */}
+        <li className="dashboard-menu-item">
+          <NavLink to="/producto" activeClassName="active">
+            <i className="fas fa-box"></i>
+            Productos
+          </NavLink>
+        </li>
+        <li className="dashboard-menu-item">
+          <NavLink to="/contacto" activeClassName="active">
+            <i className="fas fa-address-card"></i>
+            Contacto
+          </NavLink>
+        </li>
+        {/* <li className="dashboard-menu-item">
+          <i className="fas fa-users"></i>
+          Clientes
+        </li>
+        <li className="dashboard-menu-item">
+          <i className="fas fa-cog"></i>
+          Configuración
+        </li> */}
+      </ul>
+      <div className="dashboard-logout">
+        <i className="fas fa-sign-out-alt"></i>
+        Cerrar sesión
       </div>
-      <nav className="menu-nav">
-        <ul className="menu-list">
-          <li>
-            <NavLink exact to="/" activeClassName="active">
-              Inicio
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/producto" activeClassName="active">
-              Productos
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/contacto" activeClassName="active">
-              Contacto
-            </NavLink>
-          </li>
-          <li>
-            {isAuthenticated ? (
-              <button onClick={onLogout}>Cerrar sesión</button>
-            ) : (
-              <Link to="http://localhost:3000/login">Iniciar sesión</Link>
-            )}
-          </li>
-        </ul>
-      </nav>
-    </header>
+    </nav>
   );
 };
 

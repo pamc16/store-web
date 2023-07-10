@@ -1,0 +1,39 @@
+.ofertas-semana-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .ofertas-semana-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .ofertas-semana-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .ofertas-semana-item {
+    width: 30%;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+  
+  .ofertas-semana-img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .ofertas-semana-name {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  .ofertas-semana-price {
+    font-size: 14px;
+    color: #888;
+  }
+  

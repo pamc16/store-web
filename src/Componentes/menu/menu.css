@@ -1,39 +1,52 @@
-.menu {
-    width: 250px;
-    height: 100vh;
-    background-color: #f5f5f5;
-    padding: 20px;
-  }
-  
-  .menu-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .menu-list li {
-    margin-bottom: 10px;
-  }
-  
-  .menu-list li a {
-    display: block;
-    color: #333;
-    text-decoration: none;
-    padding: 8px 12px;
-    border-radius: 5px;
-  }
-  
-  .menu-list li a:hover {
-    background-color: #ccc;
-  }
-  
-  .menu-list li a.active {
-    background-color: #555;
-    color: #fff;
-  }
-  
-  .cart-icon {
-    display: flex;
-    align-items: center;
-  }
-  
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+
+.dashboard-sidebar {
+  width: 240px;
+  background-color: #252d42;
+  color: #fff;
+  padding: 20px;
+  height: 600px;
+}
+
+.dashboard-logo {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.dashboard-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dashboard-menu-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dashboard-menu-item:hover {
+  background-color: #1a2033;
+}
+
+.dashboard-menu-item.active {
+  background-color: #1a2033;
+  font-weight: bold;
+}
+
+.dashboard-menu-item i {
+  margin-right: 10px;
+}
+
+.dashboard-logout {
+  display: flex;
+  align-items: center;
+  margin-top: 15rem;
+  cursor: pointer;
+}
+
+.dashboard-logout i {
+  margin-right: 10px;
+}

@@ -1,63 +1,126 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import "./producto.css";
-import AgregarProductoModal from "./agregar-producto/agregar-producto";
-import gorra from "../../asset/img/gorra.jpg";
 
-const Producto = () => {
-  const [products, setProducts] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+const Productos = ({ addItems }) => {
+  const [filtro, setFiltro] = useState("todos");
+  const [productos, setProductos] = useState([
+    {
+      id: 1,
+      nombre: "Producto 1",
+      categoria: "ropa",
+      precio: "$19.99",
+      imagen: "ruta-imagen-producto-1.jpg",
+    },
+    {
+      id: 2,
+      nombre: "Producto 2",
+      categoria: "electrodomésticos",
+      precio: "$24.99",
+      imagen: "ruta-imagen-producto-2.jpg",
+    },
+    {
+      id: 3,
+      nombre: "Producto 3",
+      categoria: "accesorios",
+      precio: "$14.99",
+      imagen: "ruta-imagen-producto-3.jpg",
+    },
+    // Agregar más productos según sea necesario
+  ]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 9;
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  const fetchProducts = async () => {
-    try {
-      const response = await axios.get("http://localhost:3003/productos");
-      setProducts(response.data);
-    } catch (error) {
-      console.error("Error al obtener los productos:", error);
-    }
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
   };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
+  const filtrarProductos = (categoria) => {
+    setFiltro(categoria);
+    setCurrentPage(1);
   };
 
-  const handleOpenModal = () => {
-    setShowModal(true);
-  };
+  const productosFiltrados =
+    filtro === "todos"
+      ? productos
+      : productos.filter((producto) => producto.categoria === filtro);
+
+  const paginatedProducts = productosFiltrados.slice(
+    (currentPage - 1) * productsPerPage,
+    currentPage * productsPerPage
+  );
+
+  const totalPages = Math.ceil(productosFiltrados.length / productsPerPage);
 
   return (
-    <div className="container">
-      <div className="panel-title">
-        <h1>Tienda Online</h1>
-        <button className="corner-button" onClick={handleOpenModal}>
-          Agregar producto
+    <div className="productos-container">
+      <h2 className="productos-title">Nuestros Productos</h2>
+      <div className="productos-filtros">
+        <button
+          className={`filtro-btn ${filtro === "todos" ? "active" : ""}`}
+          onClick={() => filtrarProductos("todos")}
+        >
+          Todos
+        </button>
+        <button
+          className={`filtro-btn ${filtro === "ropa" ? "active" : ""}`}
+          onClick={() => filtrarProductos("ropa")}
+        >
+          Ropa
+        </button>
+        <button
+          className={`filtro-btn ${
+            filtro === "electrodomésticos" ? "active" : ""
+          }`}
+          onClick={() => filtrarProductos("electrodomésticos")}
+        >
+          Electrodomésticos
+        </button>
+        <button
+          className={`filtro-btn ${filtro === "accesorios" ? "active" : ""}`}
+          onClick={() => filtrarProductos("accesorios")}
+        >
+          Accesorios
         </button>
       </div>
-
-      <h2>Productos</h2>
-      <div className="productos">
-        {products.map((producto) => (
-          <div className="card" key={producto.id}>
-            <img src={gorra} alt={producto.nombre} />
-            <div className="card-content">
-              <h3>{producto.nombre}</h3>
-              <p>${producto.precio}</p>
-              <button>Agregar al carrito</button>
+      <div className="productos-list">
+        {paginatedProducts.map((producto) => (
+          <motion.div
+            key={producto.id}
+            className="producto-item"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => addItems(producto)}
+          >
+            <img
+              src={producto.imagen}
+              alt={producto.nombre}
+              className="producto-img"
+            />
+            <div className="producto-details">
+              <h3 className="producto-name">{producto.nombre}</h3>
+              <p className="producto-price">Precio: {producto.precio}</p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
-      <AgregarProductoModal
-        show={showModal}
-        handleClose={handleCloseModal}
-        fetchProducts={fetchProducts}
-      />
+      <div className="pagination">
+        {Array.from({ length: totalPages }).map((_, index) => (
+          <motion.button
+            key={index + 1}
+            className={`pagination-btn ${
+              currentPage === index + 1 ? "active" : ""
+            }`}
+            onClick={() => handlePageChange(index + 1)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            {index + 1}
+          </motion.button>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default Producto;
+export default Productos;

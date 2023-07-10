@@ -1,42 +1,47 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { FaShoppingCart } from "react-icons/fa";
-import "./header.css";
 import { Link } from "react-router-dom";
+import { FiShoppingCart } from "react-icons/fi";
+import "./header.css";
 
-const Header = ({ isAuthenticated, onLogout }) => {
+const Header = ({ cantidad }) => {
   return (
-    <nav className="header">
-      <ul className="header-list">
-        <li>
-          <NavLink exact to="/" activeClassName="active">
-            Inicio
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/producto" activeClassName="active">
-            Productos
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/contacto" activeClassName="active">
-            Contacto
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/carrito-compras" activeClassName="active">
-            <FaShoppingCart />
-          </NavLink>
-        </li>
-        <li>
-          {isAuthenticated ? (
-            <button onClick={onLogout}>Cerrar sesión</button>
-          ) : (
-            <Link to="http://localhost:3000/login">Iniciar sesión</Link>
-          )}
-        </li>
-      </ul>
-    </nav>
+    <header className="header">
+      <nav className="navbar">
+        <div className="logo">
+          <Link to="/" className="logo-link">
+            MyStore
+          </Link>
+        </div>
+        <ul className="nav-links">
+          <li className="nav-item">
+            <Link to="/categorias" className="nav-link">
+              Categorías
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/productos" className="nav-link">
+              Productos
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/oferta-semana" className="nav-link">
+              Ofertas
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/contacto" className="nav-link">
+              Contacto
+            </Link>
+          </li>
+        </ul>
+        <div className="cart">
+          <Link to="/carrito-compras" className="cart-icon">
+            <FiShoppingCart />
+          </Link>
+          <span className="cart-count">{cantidad}</span>
+        </div>
+      </nav>
+    </header>
   );
 };
 
